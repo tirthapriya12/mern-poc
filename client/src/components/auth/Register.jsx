@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import axios from "axios";
+import { withRouter } from 'react-router-dom';
 import classnames from 'classnames';
-export default class Register extends Component {
+import { registerUser } from '../../actions/authActions';
+class Register extends Component {
     constructor() {
         super();
         this.state = {
@@ -16,6 +20,11 @@ export default class Register extends Component {
         this.onChange = this.onChange.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.errors) {
+            this.setState({ errors: nextProps.errors });
+        }
+    }
     onSubmit(e) {
         e.preventDefault();
         let newUser = {
@@ -24,19 +33,16 @@ export default class Register extends Component {
             password: this.state.password,
             password2: this.state.password2
         }
-        console.log('Submitted');
-        axios.post('api/users/register', newUser)
-            .then((res) => {
-                this.setState({...res.data,error:null});
-            }).catch((err) => {
-                this.setState({ errors: err.response.data })
-            });
+
+        this.props.registerUser(newUser, this.props.history)
     }
+
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
     render() {
-        let { errors } = this.state;
+        let { errors } = this.state,
+            { auth } = this.props;
         return (
             <div>
                 <div className="register">
@@ -72,3 +78,14 @@ export default class Register extends Component {
         )
     }
 }
+
+Register.propTypes = {
+    registerUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+}
+const mapStateToProps = (state) => ({
+    auth: state.auth,
+    errors: state.errors
+})
+export default connect(mapStateToProps, { registerUser })(withRouter(Register));
