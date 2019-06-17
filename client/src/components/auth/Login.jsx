@@ -1,4 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/authActions'; 1
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { stat } from 'fs';
 export default class Login extends Component {
     constructor() {
         super();
@@ -17,7 +22,7 @@ export default class Login extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        
+
     }
 
     render() {
@@ -46,3 +51,12 @@ export default class Login extends Component {
         )
     }
 }
+
+Login.propTypes = {
+    loginUser: PropTypes.func.isRequired
+}
+const mapStateToProps = (state) => ({
+    user: state.user,
+    errors: state.errors
+})
+export default connect(mapStateToProps, { loginUser })(withRouter(Login))
