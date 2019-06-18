@@ -1,5 +1,5 @@
 import { SET_CURRENT_USER } from '../actions/types';
-import { stat } from 'fs';
+
 const initialState = {
     isAuthenticated: false,
     user: {}

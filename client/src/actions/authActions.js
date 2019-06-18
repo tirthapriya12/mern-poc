@@ -1,6 +1,6 @@
-import { SET_CURRENT_USER, GET_ERRORS } from './types';
+import { GET_ERRORS, SET_CURRENT_USER } from './types';
 import axios from 'axios';
-import { setAuthToken } from '../utils/setAuthToken';
+import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 
 
@@ -8,18 +8,17 @@ export const registerUser = (userData, history) => (dispatch) => {
     axios.post('api/users/register', userData)
         .then((res) => {
             history.push('/login')
-            // this.setState({ ...res.data, error: null });
         }).catch((err) => {
             dispatch({
                 action: GET_ERRORS,
                 payload: err.response.data
             })
-            // this.setState({ errors: err.response.data })
+            
         });
 }
 
-export const loginUser = (userData, history) => (dispatch) => {
-    axios.post('api/users/register', userData)
+export const loginUser = (userData) => (dispatch) => {
+    axios.post('api/users/login', userData)
         .then((res) => {
             let token = res.token;
             //set the user token to localstorage
@@ -32,7 +31,7 @@ export const loginUser = (userData, history) => (dispatch) => {
                 action: GET_ERRORS,
                 payload: err.response.data
             })
-            // this.setState({ errors: err.response.data })
+            
         });
 }
 
