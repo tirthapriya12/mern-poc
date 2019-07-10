@@ -4,6 +4,7 @@ import { loginUser } from '../../actions/authActions';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 
 class Login extends Component {
     constructor() {
@@ -77,4 +78,12 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
     errors: state.errors
 })
-export default connect(mapStateToProps, { loginUser })(withRouter(Login))
+
+const mapDispatchToProps = dispatch => bindActionCreators(
+    {
+        loginUser
+    },
+    dispatch
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login))

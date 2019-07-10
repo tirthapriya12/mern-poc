@@ -8,12 +8,12 @@ import AppRoutes from './routes';
 import './App.css';
 
 //check for token
-if (localStorage.jwtToken) {
+if (localStorage.jwtToken && localStorage.jwtToken != 'undefined') {
   //set auth token to axios header
   setAuthToken(localStorage.jwtToken);
   // decode token and get user details
   let decoded = jwt_decode(localStorage.jwtToken);
-  //se user isAuthenticated
+  //set user isAuthenticated
   store.dispatch(setCurrentUser(decoded));
 }
 
