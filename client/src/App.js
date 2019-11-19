@@ -17,7 +17,7 @@ if (localStorage.jwtToken && localStorage.jwtToken !== 'undefined') {
   store.dispatch(setCurrentUser(decoded));
   let now = Date.now() / 1000;
   //if token has expired logout the user
-  if (decoded.exp < now){
+  if (decoded.exp < now) {
     store.dispatch(logoutUser());
     window.location.href = '/login';
   }
