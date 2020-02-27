@@ -8,6 +8,8 @@ import Footer from './components/layout/Footer';
 import Dashboard from './components/dashboard/dashboard';
 import PrivateRoute from './components/common/PrivateRoute';
 import CreateProfile from './components/create-profile/create-profile';
+import EditProfile from './components/edit-profile/edit-profile';
+
 export default class AppRoutes extends Component {
 
     render() {
@@ -22,6 +24,7 @@ export default class AppRoutes extends Component {
                 <Switch>
                     <PrivateRoute path="/dashboard" exact component={Dashboard}></PrivateRoute>
                     <PrivateRoute path="/create-profile" exact component={CreateProfile}></PrivateRoute>
+                    <PrivateRoute path="/edit-profile" exact component={EditProfile}></PrivateRoute>
                 </Switch>
 
                 <Footer />

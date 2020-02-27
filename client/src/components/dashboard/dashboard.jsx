@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Spinner from '../common/Spinner';
 import { getCurrentProfile } from '../../actions/profileAction';
+import ActionableTable from '../common/ActionableTable';
 
 class Dashboard extends Component {
     constructor() {
@@ -19,6 +20,10 @@ class Dashboard extends Component {
 
     createProfile() {
         this.props.history.push('/create-profile')
+    }
+
+    onTableItemDelete = (d)=>{
+        console.log(d);
     }
 
     render() {
@@ -51,9 +56,19 @@ class Dashboard extends Component {
             dashboardContent = (
                 <>
                     <h1 className="display-4">Dashboard</h1>
-                    <p className="lead text-muted">Welcome {user.name}</p>
+                    <p className="lead text-muted">Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link></p>
 
                     {(Object.keys(profile).length > 0) ? withProfileContent : setProfileContent}
+
+                    <div className="container">
+                        <div className="row">
+                            <h4>Experience Credentials</h4>
+                            {profile.experience && profile.experience.length ?
+                                (<ActionableTable tableData={profile.experience} actions={[{ 'name': 'Delete', action: this.onTableItemDelete }]} />) :
+                                (<p> No experience added</p>)
+                            }
+                        </div>
+                    </div>
                 </>
             );
         }
