@@ -12,6 +12,9 @@ import InputGroup from '../common/InputGroup';
 import { CAREER_STATUS_OPTIONS, PROFILE_FORM_INFO_LIST, SKILL_LIST } from '../../utils/constants';
 import { createCurrentProfile, getCurrentProfile } from '../../actions/profileAction';
 
+
+
+
 class CreateProfile extends Component {
     constructor(props) {
         super(props);
@@ -51,7 +54,7 @@ class CreateProfile extends Component {
                 website: nextProps.profile.profile.website || '',
                 location: nextProps.profile.profile.location || '',
                 status: nextProps.profile.profile.status || '',
-                skills: nextProps.profile.profile.skills.join() || '',
+                skills: (nextProps.profile.profile.skills && nextProps.profile.profile.skills.join()) || '',
                 githubusername: nextProps.profile.profile.githubusername || '',
                 bio: nextProps.profile.profile.bio || '',
                 twitter: nextProps.profile.profile.twitter || '',
@@ -84,7 +87,7 @@ class CreateProfile extends Component {
             youtube: this.state.youtube,
             instagram: this.state.instagram
         };
-        this.props.createCurrentProfile(profileData, this.props.history);
+        this.props.createCurrentProfile(profileData, this.props.history, this.props.editMode);
     }
 
     render() {
@@ -144,13 +147,13 @@ class CreateProfile extends Component {
                     <div className="row">
                         <div className="col-md-8 m-auto">
                             <Link to="/dashboard" className="btn btn-primary">Back</Link>
-                            {(!this.props.editMode) ? 
-                            (<h1 className="display-4 text-center">Create Your Profile</h1>) : 
-                            (<h1 className="display-4 text-center">Edit Your Profile</h1>)}
+                            {(!this.props.editMode) ?
+                                (<h1 className="display-4 text-center">Create Your Profile</h1>) :
+                                (<h1 className="display-4 text-center">Edit Your Profile</h1>)}
                             <p className="lead text-muted text-center">Let's get some information to make your profile stand out</p>
                             <br />
                             <small className="d-block pb-3">* = required field</small>
-                            <form onSubmit={this.onSubmit.bind(this)}>
+                            <form autocomplete="off" onSubmit={this.onSubmit.bind(this)}>
                                 <TextFieldGroup
                                     type="text"
                                     error={errors.handle}
@@ -192,6 +195,18 @@ class CreateProfile extends Component {
                                     onChange={this.onChange.bind(this)}
                                     info={info.location}
                                     value={this.state.location} />
+                                {/* <Autocomplete
+                                    name="skills"
+                                    suggestions={SKILL_LIST}
+                                    onChange={() => { }}
+                                    type="text"
+                                    error={errors.skills}
+                                    placeholder="* Skills"
+                                    name="skills"
+                                    onChange={this.onChange.bind(this)}
+                                    info={info.skills}
+                                    value={this.state.skills}
+                                /> */}
                                 <TextFieldGroup
                                     type="text"
                                     error={errors.skills}

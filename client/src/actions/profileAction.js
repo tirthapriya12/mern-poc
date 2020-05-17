@@ -15,7 +15,7 @@ export const getCurrentProfile = (user) => (dispatch) => {
 export const createCurrentProfile = (profileData, history, isEditMode) => (dispatch) => {
     axios.post('api/profile', profileData)
         .then((res) => {
-            if (isEditMode)
+            if (!isEditMode)
                 alert('Profile Created');
             else
                 alert('Profile edited')

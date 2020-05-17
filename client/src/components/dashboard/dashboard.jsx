@@ -22,7 +22,7 @@ class Dashboard extends Component {
         this.props.history.push('/create-profile')
     }
 
-    onTableItemDelete = (d)=>{
+    onTableItemDelete = (d) => {
         console.log(d);
     }
 
@@ -43,9 +43,9 @@ class Dashboard extends Component {
                 </div>
             ),
             setProfileContent = (
-                <div class="lead text-muted">
+                <div className="lead text-muted">
                     <h3>Ooops It seems you haven't setup your Profile yet!!</h3>
-                    <button onClick={this.createProfile.bind(this)} class="btn btn-lg btn-info">Create Profile</button>
+                    <button onClick={this.createProfile.bind(this)} className="btn btn-lg btn-info">Create Profile</button>
                 </div>
             )
 
@@ -56,7 +56,7 @@ class Dashboard extends Component {
             dashboardContent = (
                 <>
                     <h1 className="display-4">Dashboard</h1>
-                    <p className="lead text-muted">Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link></p>
+                    <p className="lead text-muted">Welcome <Link to={profile.handle ? `/profile/${profile.handle}` : `#`}>{user.name}</Link></p>
 
                     {(Object.keys(profile).length > 0) ? withProfileContent : setProfileContent}
 

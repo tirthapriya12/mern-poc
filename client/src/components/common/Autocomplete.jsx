@@ -20,16 +20,24 @@ class Autocomplete extends Component {
         };
     }
 
+    componentDidUpdate() {
+        const { value } = this.props;
+        value && !this.state.userInput.match(this.props.value) && this.setState({ userInput: value });
+    }
+
     // Event fired when the input value is changed
     onChange = e => {
         const { suggestions } = this.props;
         let userInput = e.currentTarget.value;
-        userInput = userInput.split(",")[userInput.split(",").length - 1];
-        // Filter our suggestions that don't contain the user's input
-        const filteredSuggestions = suggestions.filter(
-            suggestion =>
-                suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-        );
+        let filteredSuggestions = [];
+        if (userInput.length > this.state.userInput.length) {
+            userInput = userInput.split(",")[userInput.split(",").length - 1];
+            // Filter our suggestions that don't contain the user's input
+            filteredSuggestions = suggestions.filter(
+                suggestion =>
+                    suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+            );
+        }
 
         // Update the user input and filtered suggestions, reset the active
         // suggestion and make sure the suggestions are shown
@@ -54,7 +62,7 @@ class Autocomplete extends Component {
                 showSuggestions: false,
                 userInput: this.state.userInput + ',' + e.currentTarget.innerText
             });
-            this.props.onChange({ name: this.props.name, target: { value: this.state.userInput + ',' + e.currentTarget.innerText } })
+            this.props.onChange({ name: this.props.name, target: { name: this.props.name, value: this.state.userInput + ',' + e.currentTarget.innerText } })
         }
         else {
             this.setState({
@@ -63,7 +71,7 @@ class Autocomplete extends Component {
                 showSuggestions: false,
                 userInput: e.currentTarget.innerText
             });
-            this.props.onChange({ name: this.props.name, target: { value: this.state.userInput } })
+            this.props.onChange({ name: this.props.name, target: { name: this.props.name, value: this.state.userInput } })
         }
     };
 
@@ -150,6 +158,7 @@ class Autocomplete extends Component {
         return (
             <>
                 <TextFieldGroup
+                    {...this.props}
                     className="autocomplete-box"
                     type="text"
                     name={this.props.name}

@@ -38,9 +38,8 @@ img {
   color: #bbb !important;
 }
 
-
-
 /* AutoComplete styles*/
+
 .no-suggestions {
   color: #999;
   padding: 0.5rem;
@@ -56,14 +55,15 @@ img {
   overflow-y: auto;
   padding-left: 0;
   width: calc(300px + 1rem);
+  position: relative;
+  top: -22px;
 }
 
 .suggestions li {
   padding: 0.5rem;
 }
 
-.suggestion-active,
-.suggestions li:hover {
+.suggestion-active, .suggestions li:hover {
   background-color: #deecec;
   color: #007bff;
   cursor: pointer;
@@ -73,4 +73,5 @@ img {
 .suggestions li:not(:last-of-type) {
   border-bottom: 1px solid #999;
 }
+
 /*Autocomplete styles end*/
