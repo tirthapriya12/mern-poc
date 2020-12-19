@@ -58,6 +58,8 @@ router.post('/register', (req, res) => {
         });
       });
     }
+  }).catch(err =>{
+    res.status(500).json(err);
   });
 });
 
@@ -106,6 +108,8 @@ router.post('/login', (req, res) => {
         return res.status(400).json(errors);
       }
     });
+  }).catch(err =>{
+    res.status(500).json(err);
   });
 });
 

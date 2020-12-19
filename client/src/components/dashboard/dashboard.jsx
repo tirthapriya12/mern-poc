@@ -60,14 +60,12 @@ class Dashboard extends Component {
 
                     {(Object.keys(profile).length > 0) ? withProfileContent : setProfileContent}
 
-                    <div className="container">
-                        <div className="row">
+                    <div className="container mt-4">
                             <h4>Experience Credentials</h4>
                             {profile.experience && profile.experience.length ?
                                 (<ActionableTable tableData={profile.experience} actions={[{ 'name': 'Delete', action: this.onTableItemDelete }]} />) :
                                 (<p> No experience added</p>)
                             }
-                        </div>
                     </div>
                 </>
             );

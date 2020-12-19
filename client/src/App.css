@@ -38,6 +38,12 @@ img {
   color: #bbb !important;
 }
 
+.app-footer {
+  position: relative;
+  width: 100%;
+  bottom: 0;
+}
+
 /* AutoComplete styles*/
 
 .no-suggestions {

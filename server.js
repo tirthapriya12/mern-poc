@@ -14,11 +14,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // DB Config
-const db = require('./config/keys').mongoURI;
+const db = require('./config/keys').atlasURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(db)
+  .connect(db,{useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
